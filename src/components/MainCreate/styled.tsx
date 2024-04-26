@@ -114,7 +114,7 @@ export const UploadArea = styled.label<{
     cursor: ${disabled ? 'not-allowed' : large ? 'pointer' : 'default'};
     pointer-events: ${disabled ? 'none' : 'default'};
     width: ${large ? '100%' : width ? `${width}px` : `170px`};
-    border-radius: ${radius ? `${radius}px` : `30px`};
+    border-radius: ${radius ? `${radius}px` : `10px`};
     aspect-ratio: ${ratio};
   `}
 `

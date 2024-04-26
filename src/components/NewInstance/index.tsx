@@ -54,6 +54,7 @@ const timeLimit = import.meta.env.VITE_UPLOAD_MAX || 45
 
 const NewInstance = ({ index, id }: InstanceType) => {
   const [showModal, setShowModal] = useState(false)
+  const [imageUrl, setImageUrl] = useState('')
 
   const {
     appendAudioBlob,
@@ -65,37 +66,28 @@ const NewInstance = ({ index, id }: InstanceType) => {
     isSubmitting,
     removeField,
   } = useContext(CreationContext)
+
   const audioRef = useRef(null)
   const fileRef = useRef(null)
-  const imageFileRef = useRef(null)
-  const [imageLoaded, setImageLoad] = useState<boolean>(false)
   const [playing, setPlaying] = useState<boolean>(false)
   const [duration, setDuration] = useState<number>(0)
   const [range, setRange] = useState<RangeType>({ min: 0, max: 30 })
   const [errorLog, setError] = useState('')
 
-  const handleImageUpload = async (e) => {
+  const handleImageUpload = (e) => {
     e.preventDefault()
 
     const file = e.target.files[0]
-    const fr = new FileReader()
+    if (!file) return
 
-    fr.readAsArrayBuffer(file)
+    const fileUrl = URL.createObjectURL(file)
 
-    fr.onload = async function () {
-      const imageLoad = await imagejs.load(fr.result)
-      const resized = imageLoad.resize({ width: 500 })
-      const imageString = resized.toDataURL()
-
-      setImageLoad(true)
-      imageFileRef.current.src = imageString
-      setShowModal(true)
-    }
+    setShowModal(true)
+    setImageUrl(fileUrl)
   }
 
-  const sliceAndPlay = async (e) => {
+  const playInProgress = async (e) => {
     e.preventDefault()
-
     audioRef.current.play()
   }
 
@@ -271,14 +263,15 @@ const NewInstance = ({ index, id }: InstanceType) => {
 
   return (
     <>
-      {imageFileRef?.current?.src && showModal && (
+      {showModal && imageUrl && (
         <CropImage
-          imageUrl={imageFileRef.current.src}
+          imageUrl={imageUrl}
           setCroppedImage={async ({ blobUrl, url }) => {
             const dataFetch = await fetch(blobUrl).then((res) => res.blob())
 
             appendImageBlob(dataFetch, id)
-            imageFileRef.current.src = url
+            setShowModal(false)
+            setImageUrl(url)
           }}
           handleClose={() => setShowModal(false)}
         />
@@ -287,8 +280,8 @@ const NewInstance = ({ index, id }: InstanceType) => {
         <InstanceContainer>
           <UploadArea ratio="2/3" width={140}>
             <ImageSelected
-              style={{ display: imageLoaded ? 'block' : 'none' }}
-              ref={imageFileRef}
+              style={{ display: imageUrl && !showModal ? 'block' : 'none' }}
+              src={imageUrl}
             />
             <SVGItem viewBox="0 0 24 24">
               <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
@@ -401,7 +394,7 @@ const NewInstance = ({ index, id }: InstanceType) => {
                   height={55}
                   radius={7}
                   onClick={(e) =>
-                    !playing ? sliceAndPlay(e) : pauseInProgress(e)
+                    !playing ? playInProgress(e) : pauseInProgress(e)
                   }
                 >
                   {playing ? <Pause /> : <Play />}

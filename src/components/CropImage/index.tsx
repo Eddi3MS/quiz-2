@@ -37,7 +37,9 @@ const CropImage = ({ imageUrl, setCroppedImage, handleClose }: any) => {
           onCropChange={setCrop}
           onCropComplete={onCropComplete}
           onZoomChange={setZoom}
-          style={{ containerStyle: { position: 'fixed', zIndex: 30 } }}
+          style={{
+            containerStyle: { position: 'fixed', zIndex: 30 },
+          }}
         />,
         document.body
       )}
@@ -47,9 +49,10 @@ const CropImage = ({ imageUrl, setCroppedImage, handleClose }: any) => {
           style={{
             position: 'absolute',
             bottom: `calc(((100vh - 500px) / 2) - 2rem)`,
-            backgroundColor: 'green',
+            backgroundColor: '#0fba17',
             padding: '10px 20px',
-            border: 0,
+            border: '2px solid #0e9815',
+            cursor: 'pointer',
             color: 'white',
             textTransform: 'uppercase',
           }}

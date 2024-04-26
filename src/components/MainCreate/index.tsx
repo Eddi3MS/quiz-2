@@ -94,6 +94,9 @@ const requiredQuiz = [
 ]
 
 const MainCreate = () => {
+  const [showModal, setShowModal] = useState(false)
+  const [imageUrl, setImageUrl] = useState('')
+
   const {
     input,
     setInput,
@@ -104,9 +107,6 @@ const MainCreate = () => {
     logger,
     isSubmitting,
   } = useContext(CreationContext)
-  const [showModal, setShowModal] = useState(false)
-  const imageFileRef = useRef(null)
-  const [imageLoaded, setImageLoad] = useState<boolean>(false)
 
   const addInstance = () => {
     const _id = uuidv4()
@@ -190,31 +190,25 @@ const MainCreate = () => {
     e.preventDefault()
 
     const file = e.target.files[0]
-    const fr = new FileReader()
+    if (!file) return
 
-    fr.readAsArrayBuffer(file)
+    const fileUrl = URL.createObjectURL(file)
 
-    fr.onload = async function () {
-      const imageLoad = await imagejs.load(fr.result)
-      const resized = imageLoad.resize({ width: 500 })
-      const imageString = resized.toDataURL()
-
-      setImageLoad(true)
-      imageFileRef.current.src = imageString
-      setShowModal(true)
-    }
+    setShowModal(true)
+    setImageUrl(fileUrl)
   }
 
   return (
     <Main>
-      {imageFileRef?.current?.src && showModal && (
+      {showModal && imageUrl && (
         <CropImage
-          imageUrl={imageFileRef.current.src}
+          imageUrl={imageUrl}
           setCroppedImage={async ({ blobUrl, url }) => {
             const dataFetch = await fetch(blobUrl).then((res) => res.blob())
 
             setMainImage(dataFetch)
-            imageFileRef.current.src = url
+            setShowModal(false)
+            setImageUrl(url)
           }}
           handleClose={() => setShowModal(false)}
         />
@@ -236,8 +230,8 @@ const MainCreate = () => {
             <Label>Imagem de Capa</Label>
             <UploadArea ratio="2/3" width={140}>
               <ImageSelected
-                style={{ display: imageLoaded ? 'block' : 'none' }}
-                ref={imageFileRef}
+                style={{ display: imageUrl && !showModal ? 'block' : 'none' }}
+                src={imageUrl}
               />
               <SVGItem viewBox="0 0 24 24">
                 <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
