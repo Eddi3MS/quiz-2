@@ -24,6 +24,7 @@ import {
   ProgressBar,
   Error,
 } from './styled'
+import CropImage from '../CropImage'
 
 interface InputType {
   title: string
@@ -103,6 +104,7 @@ const MainCreate = () => {
     logger,
     isSubmitting,
   } = useContext(CreationContext)
+  const [showModal, setShowModal] = useState(false)
   const imageFileRef = useRef(null)
   const [imageLoaded, setImageLoad] = useState<boolean>(false)
 
@@ -194,23 +196,30 @@ const MainCreate = () => {
 
     fr.onload = async function () {
       const imageLoad = await imagejs.load(fr.result)
-      const resized = imageLoad.resize({ width: 300 })
+      const resized = imageLoad.resize({ width: 500 })
       const imageString = resized.toDataURL()
-      const dataFetch = await fetch(imageString).then((res) => res.blob())
-      const url = URL.createObjectURL(dataFetch)
 
       setImageLoad(true)
-      setMainImage(dataFetch)
-      imageFileRef.current.src = url
+      imageFileRef.current.src = imageString
+      setShowModal(true)
     }
   }
 
   return (
     <Main>
-      <PageTitle>
-        Crie seu <br />
-        Quiz
-      </PageTitle>
+      {imageFileRef?.current?.src && showModal && (
+        <CropImage
+          imageUrl={imageFileRef.current.src}
+          setCroppedImage={async ({ blobUrl, url }) => {
+            const dataFetch = await fetch(blobUrl).then((res) => res.blob())
+
+            setMainImage(dataFetch)
+            imageFileRef.current.src = url
+          }}
+          handleClose={() => setShowModal(false)}
+        />
+      )}
+      <PageTitle>Crie seu Quiz</PageTitle>
       <Form>
         <TextInput
           onChange={handleTextInput}
@@ -225,7 +234,7 @@ const MainCreate = () => {
         <Flex>
           <InputField>
             <Label>Imagem de Capa</Label>
-            <UploadArea>
+            <UploadArea ratio="2/3" width={140}>
               <ImageSelected
                 style={{ display: imageLoaded ? 'block' : 'none' }}
                 ref={imageFileRef}
@@ -266,6 +275,7 @@ const MainCreate = () => {
         <UploadArea
           onClick={!isSubmitting ? addInstance : undefined}
           large={true}
+          ratio="12/2"
           disabled={isSubmitting}
         >
           <SVGItem viewBox="0 0 24 24">

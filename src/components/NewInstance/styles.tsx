@@ -47,11 +47,10 @@ export const Button = styled.button<{
 export const ImageSelected = styled.img`
   display: block;
   width: 100%;
-  height: 100%;
   position: absolute;
-  top: 0px;
-  left: 0px;
-  object-fit: cover;
+  inset: 0;
+  object-fit: contain;
   object-position: center;
+  aspect-ratio: 2/3;
 `
 

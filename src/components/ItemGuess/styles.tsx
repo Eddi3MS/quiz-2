@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 export const Item = styled.div<{ correct: boolean; current: boolean }>`
   box-sizing: border-box;
-  width: 160px;
+  width: 140px;
   background-color: ${({ correct }) => (correct ? '#559b54' : '#5a0595')};
   ${({ current }) =>
     css`
@@ -16,6 +16,7 @@ export const TitleWrapper = styled.div`
   align-items: center;
   position: relative;
   overflow: hidden;
+  padding-block: 5px;
 `
 
 export const Title = styled.p`
@@ -37,9 +38,9 @@ export const ImageWrapper = styled.div`
 `
 
 export const Image = styled.img`
-  width: 100%;
-  height: 200px;
+  aspect-ratio: 2/3;
   object-fit: cover;
+  object-position: center;
 `
 
 export const InputWrapper = styled.div`

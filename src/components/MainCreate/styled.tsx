@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 export const Main = styled.main`
-  padding: 0 50px;
+  padding: 40px 50px 0;
   max-width: 1050px;
   margin: 0 auto;
 `
@@ -90,32 +90,32 @@ export const Input = styled.input`
 `
 
 export const UploadArea = styled.label<{
-  large?: boolean
   width?: number
-  height?: number
   radius?: number
   disabled?: boolean
+  ratio?: string
+  large: boolean
 }>`
   position: relative;
-  border: 1px dotted #ffffff;
+  border: 1px solid #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   background-color: #55556e;
   transition: 0.2s ease;
+  overflow: hidden;
 
   &:hover {
     background-color: #4f4f66;
   }
 
-  ${({ disabled, large, width, height, radius }) => css`
+  ${({ disabled, large, width, radius, ratio = '1/1' }) => css`
     opacity: ${disabled ? '.5' : 1};
     cursor: ${disabled ? 'not-allowed' : large ? 'pointer' : 'default'};
     pointer-events: ${disabled ? 'none' : 'default'};
     width: ${large ? '100%' : width ? `${width}px` : `170px`};
-    height: ${large ? '150px' : height ? `${height}px` : `220px`};
     border-radius: ${radius ? `${radius}px` : `30px`};
+    aspect-ratio: ${ratio};
   `}
 `
 

@@ -2,22 +2,21 @@ import styled from 'styled-components'
 
 export const ItemWrapper = styled.div`
   display: flex;
-  height: 200px;
+  height: 224px;
   border-radius: 6px;
   overflow: hidden;
   text-decoration: none;
   cursor: pointer;
+  background-color: #d2d9df;
 `
 export const CoverImage = styled.img`
-  min-width: 140px;
-  width: 140px;
   object-fit: cover;
   object-position: center;
+  aspect-ratio: 2/3;
 `
 
 export const Container = styled.div`
   padding: 16px;
-  background-color: #d2d9df;
   width: 240px;
 `
 
