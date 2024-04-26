@@ -3,10 +3,8 @@
 
 import audioBufferSlice from 'audiobuffer-slice'
 import toWav from 'audiobuffer-to-wav'
-import imagejs from 'image-js'
 import { useContext, useRef, useState } from 'react'
 import InputRange from 'react-input-range'
-import Svg from '../../assets/dots.svg'
 
 import {
   Container,
@@ -21,9 +19,9 @@ import { Button, ImageSelected, InstanceContainer } from './styles'
 
 import axios from 'axios'
 import { Pause, Play } from '../../assets/icons/utils/AudioStatus'
+import CropImage from '../CropImage'
 import { CreationContext } from '../context/CreationContext'
 import './range.css'
-import CropImage from '../CropImage'
 
 interface InputType {
   title: string
@@ -306,6 +304,12 @@ const NewInstance = ({ index, id }: InstanceType) => {
             onChange={handleTextInput}
             name="variations"
             title="Respostas (Separe por virgulas)"
+          />
+          <TextInput
+            value={input.quizItems[index].tip}
+            onChange={handleTextInput}
+            name="tip"
+            title="Dica"
           />
           <Label>Seleção de Musica</Label>
 

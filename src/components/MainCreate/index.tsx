@@ -1,30 +1,29 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-import { useContext, useRef, useState } from 'react'
+import { useContext, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import { Checked, Unchecked } from '../../assets/icons/utils/CheckStatus'
-import { CreationContext } from '../context/CreationContext'
 import NewInstance from '../NewInstance'
 import { ImageSelected } from '../NewInstance/styles'
-import imagejs from 'image-js'
-import { v4 as uuidv4 } from 'uuid'
+import { CreationContext } from '../context/CreationContext'
 
+import CropImage from '../CropImage'
 import {
-  Main,
-  PageTitle,
+  Container,
+  Error,
+  Flex,
   Form,
+  Input,
   InputField,
   Label,
-  Input,
-  UploadArea,
-  SVGItem,
-  Flex,
-  Container,
-  Submit,
+  Main,
+  PageTitle,
   ProgressBar,
-  Error,
+  SVGItem,
+  Submit,
+  UploadArea,
 } from './styled'
-import CropImage from '../CropImage'
 
 interface InputType {
   title: string
@@ -121,6 +120,7 @@ const MainCreate = () => {
           youtubeUrl: '',
           cardTitle: '',
           variations: '',
+          tip: '',
           audioBlob: null,
           imageBlob: null,
         },

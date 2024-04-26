@@ -3,7 +3,22 @@ import Cropper, { Area, Point } from 'react-easy-crop'
 import ReactDOM from 'react-dom'
 import getCroppedImg from '../../utils/cropImage'
 
-const CropImage = ({ imageUrl, setCroppedImage, handleClose }: any) => {
+type CropImagProps = {
+  imageUrl: string
+  setCroppedImage: (
+    data: {
+      blobUrl: unknown
+      url: string
+    } | null
+  ) => void
+  handleClose: () => void
+}
+
+const CropImage = ({
+  imageUrl,
+  setCroppedImage,
+  handleClose,
+}: CropImagProps) => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [areaPixel, setAreaPixel] = useState<Area | null>(null)

@@ -16,11 +16,10 @@ export const TitleWrapper = styled.div`
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding-block: 5px;
+  padding: 5px 10px;
 `
 
 export const Title = styled.p`
-  padding-inline: 0.5rem 2rem;
   font-size: 14px;
   color: #fff;
 
@@ -67,19 +66,15 @@ export const ProgressBar = styled.div`
   bottom: 0px;
 `
 
-export const Reveal = styled.button`
+export const IconButton = styled.button`
   padding: 0px;
   margin: 0px;
-  margin-right: 8px;
   background: none;
   border: none;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
+  color: white;
 `
 

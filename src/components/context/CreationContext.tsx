@@ -20,6 +20,7 @@ interface QuizItemCreationType {
   imageBlob: Blob
   variations: string
   youtubeUrl: number
+  tip: string
 }
 
 interface CreationTypes {
@@ -163,9 +164,10 @@ const CreationProvider = ({ children }: PropsWithChildren) => {
         dmcaNotice: input.dmcaNotice,
         createdAt: +new Date(),
         quizItems: input.quizItems.map(
-          ({ cardTitle, variations, youtubeUrl }, index) => ({
+          ({ cardTitle, variations, youtubeUrl, tip }, index) => ({
             name: cardTitle,
             youtubeUrl,
+            tip,
             variations: variations.split(',').map((x: string) => x.trim()),
             audioId: `audio/${uuid}_${index}`,
             imageId: `cards/${uuid}_${index}`,
