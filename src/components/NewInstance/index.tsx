@@ -92,8 +92,8 @@ const NewInstance = ({ index, id }: InstanceType) => {
       volume = 70
     }
 
-    audioRef.current.play()
     audioRef.current.volume = volume / 100
+    audioRef.current.play()
   }
 
   const pauseInProgress = (e) => {
