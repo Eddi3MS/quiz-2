@@ -55,6 +55,17 @@ const ItemGuess = ({
           width={160}
         />
 
+        <Image
+          style={{
+            visibility: 'hidden',
+            pointerEvents: 'none',
+            width: 0,
+            height: 0,
+          }}
+          src={imageUrl}
+          alt={name}
+        />
+
         {playing ? (
           <Play className="play-status" />
         ) : (

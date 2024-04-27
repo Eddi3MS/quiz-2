@@ -19,12 +19,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-block: 15px;
+  padding-block: 2.5rem 1rem;
   background-color: #55556e;
-
-  & > * {
-    margin: 10px 0 0 0;
-  }
 `
 
 export const Count = styled.p`

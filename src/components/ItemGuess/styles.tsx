@@ -26,11 +26,14 @@ export const TitleWrapper = styled.div`
   position: relative;
   overflow: hidden;
   padding: 5px 10px;
+  margin: 0;
 `
 
 export const Title = styled.p`
   font-size: 14px;
   color: #fff;
+  margin: 0;
+  padding: 0;
 
   word-break: break-all;
   display: -webkit-box;
