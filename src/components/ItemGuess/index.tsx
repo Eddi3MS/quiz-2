@@ -44,8 +44,8 @@ const ItemGuess = ({
       <TitleWrapper>
         <Title>{name}</Title>
 
-        <IconButton onClick={() => setForfeit(true)}>
-          {forfeit ? <EyeOpenIcon /> : <EyeClosedIcon />}
+        <IconButton onClick={() => setForfeit(true)} disabled={correct}>
+          {forfeit || correct ? <EyeOpenIcon /> : <EyeClosedIcon />}
         </IconButton>
       </TitleWrapper>
       <ImageWrapper onClick={handlePlay}>
