@@ -23,7 +23,16 @@ const Main = () => {
   const [loading, setLoading] = useState(true)
   const [quiz, setQuiz] = useState<QuizType | null>(null)
   const [playingIndex, setPlayingIndex] = useState<number | null>(null)
-  const [volume, setVolume] = useState(100)
+  const [volume, setVolume] = useState(() => {
+    const localVolume = localStorage.getItem('volume')
+
+    if (!localVolume || isNaN(+localVolume)) {
+      localStorage.setItem('volume', String(70))
+      return 70
+    }
+
+    return +localVolume
+  })
 
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
@@ -31,6 +40,8 @@ const Main = () => {
 
   const handlePlay = (index: number, audioUrl: string) => {
     if (!audioRef?.current || !audioUrl) return
+
+    audioRef.current.volume = volume / 100
 
     if (playingIndex === index) {
       if (audioRef.current.paused) {
@@ -52,6 +63,7 @@ const Main = () => {
     if (!audioRef?.current) return
 
     audioRef.current.volume = volume / 100
+    localStorage.setItem('volume', String(volume))
   }, [volume])
 
   useEffect(() => {
