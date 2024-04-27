@@ -225,8 +225,8 @@ const MainCreate = () => {
           name="quizDescription"
           title="Descrição do Quiz (Opcional)"
         />
-        <Flex>
-          <InputField>
+        <Flex style={{ gap: '32px' }}>
+          <InputField style={{ width: 'auto' }}>
             <Label>Imagem de Capa</Label>
             <UploadArea ratio="2/3" width={160}>
               <ImageSelected

@@ -360,7 +360,7 @@ const NewInstance = ({ index, id }: InstanceType) => {
                   title="Link do YouTube"
                 />
 
-                <UploadArea width={55} radius={7}>
+                <UploadArea width={48} radius={7}>
                   {isSubmitting ? (
                     <span class="loader"></span>
                   ) : (

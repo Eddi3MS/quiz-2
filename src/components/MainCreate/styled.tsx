@@ -15,6 +15,7 @@ export const Form = styled.form``
 
 export const Container = styled.div`
   width: 100%;
+  flex-grow: 2;
 `
 
 export const InputField = styled.div<{ type?: string }>`
