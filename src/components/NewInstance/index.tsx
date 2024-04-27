@@ -86,7 +86,14 @@ const NewInstance = ({ index, id }: InstanceType) => {
 
   const playInProgress = async (e) => {
     e.preventDefault()
+    let volume = localStorage.getItem('volume')
+
+    if (!volume || isNaN(+volume) || +volume < 70) {
+      volume = 70
+    }
+
     audioRef.current.play()
+    audioRef.current.volume = volume / 100
   }
 
   const pauseInProgress = (e) => {
