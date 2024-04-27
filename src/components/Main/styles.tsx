@@ -19,7 +19,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-block: 2.5rem 1rem;
+  padding-block: 2.5rem 0;
   background-color: #55556e;
 `
 
@@ -27,6 +27,7 @@ export const Count = styled.p`
   font-size: 24px;
   color: #fff;
   text-align: center;
+  margin-block: 1rem;
 `
 
 export const Title = styled.p`
@@ -41,6 +42,7 @@ export const Description = styled.p`
   color: #fff;
   text-align: center;
   word-break: break-all;
+  margin-top: 0;
 `
 
 export const Audio = styled.audio`
