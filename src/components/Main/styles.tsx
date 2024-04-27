@@ -19,9 +19,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: sticky;
-  top: 80px;
-  z-index: 5;
   padding-block: 15px;
   background-color: #55556e;
 
@@ -51,7 +48,19 @@ export const Description = styled.p`
 `
 
 export const Audio = styled.audio`
-  position: sticky;
-  top: 80px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  visibility: hidden;
+`
+
+export const InputRange = styled.input`
+  width: 200px;
+  position: fixed;
+  transform: rotate(-90deg);
+  right: -70px;
+  bottom: 150px;
+  color: rgb(90, 5, 149);
 `
 

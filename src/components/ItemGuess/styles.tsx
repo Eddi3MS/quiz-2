@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 export const Item = styled.div<{ correct: boolean; current: boolean }>`
   box-sizing: border-box;
-  width: 140px;
+  width: 160px;
   background-color: ${({ correct }) => (correct ? '#559b54' : '#5a0595')};
   ${({ current }) =>
     css`

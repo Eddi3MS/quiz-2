@@ -2,6 +2,7 @@ import { onValue, ref } from 'firebase/database'
 import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { database } from '../../config/firebase'
+import { QuizType } from '../../types'
 import { assetsUrl } from '../../utils/assetsUrl'
 import ItemGuess from '../ItemGuess'
 import Loader from '../Loader'
@@ -11,10 +12,10 @@ import {
   Count,
   Description,
   Grid,
+  InputRange,
   Main as MainWrapper,
   Title,
 } from './styles'
-import { QuizType } from '../../types'
 
 const Main = () => {
   const { id } = useParams()
@@ -22,13 +23,13 @@ const Main = () => {
   const [loading, setLoading] = useState(true)
   const [quiz, setQuiz] = useState<QuizType | null>(null)
   const [playingIndex, setPlayingIndex] = useState<number | null>(null)
+  const [volume, setVolume] = useState(100)
 
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   const addCount = () => setCount(count + 1)
 
-  const handlePlay = (index: number) => {
-    const audioUrl = quiz?.quizItems?.[index]?.audioUrl
+  const handlePlay = (index: number, audioUrl: string) => {
     if (!audioRef?.current || !audioUrl) return
 
     if (playingIndex === index) {
@@ -46,6 +47,12 @@ const Main = () => {
     }
     setPlayingIndex(index)
   }
+
+  useEffect(() => {
+    if (!audioRef?.current) return
+
+    audioRef.current.volume = volume / 100
+  }, [volume])
 
   useEffect(() => {
     if (!id) return
@@ -110,6 +117,7 @@ const Main = () => {
 
   return (
     <MainWrapper>
+      <Audio id="audio" src={''} preload="none" ref={audioRef}></Audio>
       <Grid>
         {loading ? (
           <Loader />
@@ -124,15 +132,8 @@ const Main = () => {
                 {quiz.quizDescription} por: {quiz.author}
               </Description>
               <CountComp count={count} quizLength={quiz?.quizItems?.length} />
-
-              <Audio
-                id="audio"
-                src={''}
-                preload="none"
-                ref={audioRef}
-                controls
-              ></Audio>
             </Container>
+
             {quiz?.quizItems.map((item, i) => {
               return (
                 <ItemGuess
@@ -141,13 +142,20 @@ const Main = () => {
                   quizItem={item}
                   key={i}
                   playing={playingIndex === i}
-                  handlePlay={() => handlePlay(i)}
+                  handlePlay={() => handlePlay(i, item.audioUrl)}
                 />
               )
             })}
           </>
         )}
       </Grid>
+      <InputRange
+        onChange={({ target: { value } }) => setVolume(parseInt(value))}
+        value={volume}
+        min={0}
+        max={100}
+        type="range"
+      />
     </MainWrapper>
   )
 }

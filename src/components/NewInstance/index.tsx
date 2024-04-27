@@ -276,7 +276,7 @@ const NewInstance = ({ index, id }: InstanceType) => {
       )}
       <Flex style={{ gap: 32, marginBottom: 40, alignItems: 'flex-start' }}>
         <InstanceContainer>
-          <UploadArea ratio="2/3" width={140}>
+          <UploadArea ratio="2/3" width={160}>
             <ImageSelected
               style={{ display: imageUrl && !showModal ? 'block' : 'none' }}
               src={imageUrl}
@@ -305,12 +305,7 @@ const NewInstance = ({ index, id }: InstanceType) => {
             name="variations"
             title="Respostas (Separe por virgulas)"
           />
-          <TextInput
-            value={input.quizItems[index].tip}
-            onChange={handleTextInput}
-            name="tip"
-            title="Dica"
-          />
+
           <Label>Seleção de Musica</Label>
 
           <Flex

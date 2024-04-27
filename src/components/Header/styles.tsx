@@ -11,9 +11,6 @@ export const MainHeader = styled.header`
   gap: 2rem;
   border-bottom: 1px solid #48485e;
   background-color: #55556e;
-  position: sticky;
-  top: 0;
-  z-index: 10;
 
   @media screen and (max-width: 1040px) {
     justify-content: center;

@@ -228,7 +228,7 @@ const MainCreate = () => {
         <Flex>
           <InputField>
             <Label>Imagem de Capa</Label>
-            <UploadArea ratio="2/3" width={140}>
+            <UploadArea ratio="2/3" width={160}>
               <ImageSelected
                 style={{ display: imageUrl && !showModal ? 'block' : 'none' }}
                 src={imageUrl}

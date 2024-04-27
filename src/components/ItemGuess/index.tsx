@@ -1,11 +1,6 @@
-import {
-  EyeOpenIcon,
-  InfoCircledIcon,
-  EyeClosedIcon,
-} from '@radix-ui/react-icons'
+import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons'
 import { useState } from 'react'
 import { Pause, Play } from '../../assets/icons/utils/AudioStatus'
-import PopoverComp from '../Popover'
 import './style.css'
 import {
   IconButton,
@@ -22,7 +17,6 @@ interface QuizTypes {
   name: string
   imageUrl: string
   variations: string[]
-  tip?: string
 }
 
 interface Props {
@@ -40,7 +34,7 @@ const ItemGuess = ({
   playing,
   handlePlay,
 }: Props) => {
-  const { name, imageUrl, variations, tip } = quizItem
+  const { name, imageUrl, variations } = quizItem
   const [forfeit, setForfeit] = useState<boolean>(false)
   const [input, setInput] = useState<string>('')
   const [correct, setCorrect] = useState(false)
@@ -49,42 +43,16 @@ const ItemGuess = ({
     <Item correct={correct} current={playing}>
       <TitleWrapper>
         <Title>{name}</Title>
-        <div style={{ display: 'flex', gap: 10 }}>
-          {tip && (
-            <PopoverComp
-              content={
-                <div
-                  style={{ display: 'flex', flexDirection: 'column', gap: 10 }}
-                >
-                  <p>{tip}</p>
-                </div>
-              }
-            >
-              <IconButton>
-                <InfoCircledIcon />
-              </IconButton>
-            </PopoverComp>
-          )}
-          <IconButton onClick={() => setForfeit(true)}>
-            {forfeit ? <EyeOpenIcon /> : <EyeClosedIcon />}
-          </IconButton>
-        </div>
+
+        <IconButton onClick={() => setForfeit(true)}>
+          {forfeit ? <EyeOpenIcon /> : <EyeClosedIcon />}
+        </IconButton>
       </TitleWrapper>
       <ImageWrapper onClick={handlePlay}>
         <Image
           src={correct || forfeit ? imageUrl : cardBackground}
           alt={name}
-          height={210}
-        />
-        <Image
-          style={{
-            visibility: 'hidden',
-            pointerEvents: 'none',
-            width: 0,
-            height: 0,
-          }}
-          src={imageUrl}
-          alt={name}
+          width={160}
         />
 
         {playing ? (
