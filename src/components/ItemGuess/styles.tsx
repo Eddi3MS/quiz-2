@@ -1,12 +1,21 @@
 import styled, { css } from 'styled-components'
 
-export const Item = styled.div<{ correct: boolean; current: boolean }>`
+export const Item = styled.div<{
+  correct: boolean
+  current: boolean
+  forfeit: boolean
+}>`
   box-sizing: border-box;
   width: 160px;
-  background-color: ${({ correct }) => (correct ? '#559b54' : '#5a0595')};
-  ${({ current }) =>
+
+  ${({ current, correct, forfeit }) =>
     css`
       outline: ${current ? '#2db42b solid 2px ' : 'none'};
+      background-color: ${correct
+        ? '#559b54'
+        : forfeit
+        ? '#ac1616'
+        : '#5a0595'};
     `}
 `
 

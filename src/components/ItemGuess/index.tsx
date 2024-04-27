@@ -40,7 +40,7 @@ const ItemGuess = ({
   const [correct, setCorrect] = useState(false)
 
   return (
-    <Item correct={correct} current={playing}>
+    <Item correct={correct} forfeit={forfeit} current={playing}>
       <TitleWrapper>
         <Title>{name}</Title>
 
